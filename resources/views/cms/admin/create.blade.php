@@ -153,7 +153,7 @@ let formData = new FormData();
     formData.append('status',document.getElementById('status').value);
     formData.append('date',document.getElementById('date').value);
     formData.append('city_id',document.getElementById('city_id').value);
-    // formData.append('image',document.getElementById('image').files[0]);
+    formData.append('image',document.getElementById('image').files[0]);
 
     store('/cms/admin/admins' , formData);
 }

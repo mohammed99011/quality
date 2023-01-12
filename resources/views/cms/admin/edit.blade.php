@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'Edit City')
+@section('title' , 'Edit Admin')
 
-@section('main-title' , 'Edit City')
+@section('main-title' , 'Edit Admin')
 
-@section('sub-title' , 'Edit City')
+@section('sub-title' , 'Edit Admin')
 
 @section('styles')
 
@@ -19,46 +19,118 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Edit Data City</h3>
+              <h3 class="card-title">Edit New Admin</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form>
               <div class="card-body">
+             <div class="row">
 
-              <div class="row">
+                <div class="form-group col-md-4">
 
-                <div class="form-group col-md-6">
-                  <label for="name">City Name</label>
-                  <input type="text" class="form-control" name="name" id="name"
-                  value="{{ $cities->name }}" placeholder="Enter City Name">
+                  <label for="first_name">First Name</label>
+                  <input type="text" class="form-control" name="first_name" id="first_name"
+                   value="{{ $admins->user->first_name }}" placeholder="Enter First Name">
                 </div>
 
-                <div class="form-group col-md-6">
-                  <label for="country_id"> Country Name</label>
-                  <select class="form-control" name="country_id" style="width: 100%;"
-                      id="country_id" aria-label=".form-select-sm example">
-                     {{-- <option value="{{ $cities->country->id }}">{{ $cities->country->country_name }}</option> --}}
-                      @foreach ($countries as $country )
-                      <option @if ($country->id == $cities->country_id) selected @endif value="{{ $cities->country->id }}">
-                        {{ $cities->country->country_name }}</option>
-                      
+                 <div class="form-group col-md-4">
+
+                  <label for="last_name">Last Name Name</label>
+                  <input type="text" class="form-control" name="last_name" id="last_name"
+                  value="{{ $admins->user->last_name }}" placeholder="Enter Admin Name">
+                </div>
+
+                 <div class="form-group col-md-4">
+
+                  <label for="mobile"> Mobile</label>
+                  <input type="text" class="form-control" name="mobile" id="mobile"
+                  value="{{ $admins->user->mobile }}" placeholder="Enter Admin Name">
+                </div>
+              </div>
+             <div class="row">
+
+                <div class="form-group col-md-4">
+
+                  <label for="email"> Email</label>
+                  <input type="email" class="form-control" name="email" id="email"
+                  value="{{ $admins->email }}" placeholder="Enter Admin Name">
+                </div>
+
+                {{-- <div class="form-group col-md-4">
+
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Enter Admin Name">
+                </div> --}}
+
+                <div class="form-group col-md-4">
+
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" name="address" id="address"
+                  value="{{ $admins->user->address }}" placeholder="Enter Admin Name">
+                </div>
+                </div>
+
+             <div class="row">
+
+              <div class="form-group col-md-4">
+                  <label for="city_id">City</label>
+                  <select class="form-control" name="city_id" style="width: 100%;"
+                      id="city_id" aria-label=".form-select-sm example">
+                      @foreach ($cities as $city )
+                      <option @if ($city->id == $admins->user->city->city_id) selected @endif value="{{ $admins->user->city->id }}">
+                        {{ $admins->user->city->name }}</option>
                       @endforeach
                   </select>
               </div>
-{{-- 
-                @foreach ($units as $unit)
-                <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                <option @if ($unit->id == $products->unit_id) selected @endif value="{{ $unit->id }}">
-                    {{ $unit->name }}</option>
-            @endforeach --}}
-            
+
+                    <div class="form-group col-md-4">
+                     <label for="gender">Gender</label>
+                     <select class="form-select form-select-sm" name="gender" style="width: 100%;"
+                           id="gender" aria-label=".form-select-sm example">
+                           <option selected> {{ $admins->user->gender }} </option>
+                           <option value="male">Male </option>
+                          <option value="female">female </option>
+                       </select>
+              </div>
+
+                    <div class="form-group col-md-4">
+                     <label for="status">Status</label>
+                     <select class="form-select form-select-sm" name="status" style="width: 100%;"
+                           id="status" aria-label=".form-select-sm example">
+                           <option selected> {{ $admins->user->status }} </option>
+                           <option value="active">Active </option>
+                          <option value="inactive">Inactive </option>
+                       </select>
+              </div>
+            </div>
+
+             <div class="row">
+
+                <div class="form-group col-md-6">
+                  <label for="date">Date of Birth</label>
+                  <input type="date" class="form-control" id="date" name="date"
+                  value="{{ $admins->user->date }}" placeholder="Enter address of Admin">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="image">Choose Image</label>
+                  <input type="file" class="form-control" id="image" name="image" placeholder="Enter address of Admin">
+                </div>
+
+            </div>
+
+                  {{-- </div> --}}
+                  <!-- /.col -->
+              
+                  <!-- /.col -->
+                </div>
               </div>
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="button" onclick="performUpdate({{$cities->id}})" class="btn btn-primary">Update</button>
-                <a href="{{ route('cities.index') }}" type="submit" class="btn btn-info">GO BACK</a>
+                <button type="button" onclick="performUpdate({{ $admins->id }})" class="btn btn-primary">Update</button>
+                <a href="{{ route('admins.index') }}" type="submit" class="btn btn-info">GO BACK</a>
 
               </div>
             </form>
@@ -68,7 +140,7 @@
 
         </div>
         <!--/.col (left) -->
-     
+
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -76,16 +148,26 @@
 @endsection
 
 @section('scripts')
-  <script>
-  function performUpdate(id){
 
-    let formData = new FormData();
-    formData.append('name',document.getElementById('name').value);
-    formData.append('country_id',document.getElementById('country_id').value);
+<script>
+function performUpdate(id){
 
-    storeRoute('/cms/admin/cities_update/'+id , formData);
+let formData = new FormData();
+    formData.append('first_name',document.getElementById('first_name').value);
+    formData.append('last_name',document.getElementById('last_name').value);
+    formData.append('mobile',document.getElementById('mobile').value);
+    formData.append('email',document.getElementById('email').value);
+    // formData.append('password',document.getElementById('password').value);
+    formData.append('address',document.getElementById('address').value);
+    formData.append('gender',document.getElementById('gender').value);
+    formData.append('status',document.getElementById('status').value);
+    formData.append('date',document.getElementById('date').value);
+    formData.append('city_id',document.getElementById('city_id').value);
+    formData.append('image',document.getElementById('image').files[0]);
 
-  }
+    storeRoute('/cms/admin/admins_update/'+id , formData);
+}
 
-  </script>
+</script>
+
 @endsection
