@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
@@ -29,5 +30,9 @@ Route::prefix('cms/admin')->group(function(){
 
     Route::resource('cities' , CityController::class);
     Route::post('cities_update/{id}' , [CityController::class , 'update'])->name('cities_update');
+
+
+    Route::resource('admins' , AdminController::class);
+    Route::post('admins_update/{id}' , [AdminController::class , 'update'])->name('admins_update');
 
 });

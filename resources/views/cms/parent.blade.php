@@ -233,13 +233,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="{{ route('admins.index') }}" class="nav-link">
                     <i class="fas fa-list-ul nav-icon"></i>
                     <p>index</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="{{ route('admins.create') }}" class="nav-link">
                     <i class="fas fa-plus nav-icon"></i>
                     <p>create</p>
                 </a>
