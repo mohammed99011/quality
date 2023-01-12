@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -23,7 +24,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+
+        $cities = City::all();
+        return response()->view('cms.admin.create' , compact('cities'));
     }
 
     /**
