@@ -233,13 +233,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="{{ route('admins.index')}}" class="nav-link">
                     <i class="fas fa-list-ul nav-icon"></i>
                     <p>index</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="{{ route('admins.create') }}" class="nav-link">
                     <i class="fas fa-plus nav-icon"></i>
                     <p>create</p>
                 </a>
@@ -270,6 +270,34 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('countries.create') }}" class="nav-link">
+                  <i class="fas fa-plus nav-icon"></i>
+                  {{-- <i class="fas fa-plus"></i> --}}
+                  <p>create</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-globe-europe"></i>
+              {{-- <i class="fas fa-globe-europe"></i> --}}
+              <p>
+                City
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('cities.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  {{-- <i class="fas fa-list-ul"></i> --}}
+                  <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('cities.create') }}" class="nav-link">
                   <i class="fas fa-plus nav-icon"></i>
                   {{-- <i class="fas fa-plus"></i> --}}
                   <p>create</p>
