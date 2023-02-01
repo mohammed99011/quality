@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'INDESX Admins')
+@section('title' , 'INDEX Permissions')
 
-@section('main-title' , 'Index Admins ')
+@section('main-title' , 'Index permissions ')
 
-@section('sub-title' , 'Index Admins ')
+@section('sub-title' , 'Index permissions ')
 
 @section('styles')
 
@@ -25,7 +25,7 @@
               <div class="card">
                 <div class="card-header">
 
-                  <a href="{{ route('admins.create') }}" type="submit" class="btn btn-info">Add New Admin</a>
+                  <a href="{{ route('permissions.create') }}" type="submit" class="btn btn-info">Add New Permission</a>
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -45,39 +45,23 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Full Name</th>
-                        
-                        <th>email</th>
-                        <th>gender</th>
-                        <th>status</th>
-                        <th>City Name</th>
+                        <th>Permission Name</th>
+                        <th>Guard Name</th>
+
                         <th>Setting</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($permissions as $permission)
                       <tr>
-                        <td>{{$admin->id}}</td>
-                        <td>
-                          <img class="img-circle img-bordered-sm" src="{{asset('storage/images/admin/'.$admin->user->image)}}" width="50" height="50" alt="User Image">
-                      </td>
-                        <td>{{$admin->user->first_name . " " . $admin->user->last_name ?? ""}}</td>
-                        {{-- <td>{{$admin->user->last_name ?? ""}}</td> --}}
-                        <td>{{$admin->email}}</td>
-                        <td>{{$admin->user->gender ?? ""}}</td>
-                        <td>{{$admin->user->status ?? ""}}</td>
-
-                        <td>{{$admin->user->city->name ?? ""}}</td>
+                        <td>{{$permission->id}}</td>
+                        <td>{{$permission->name}}</td>
+                        <td>{{$permission->guard_name}}</td>
 
                         <td>
                             <div class="btn group">
-                                @can('Edit-Admin')
-                                <a href="{{ route('admins.edit' , $admin->id) }}" type="button" class="btn btn-info">Edit</a>
-                               @endcan
-                               @can('Delete-Admin')
-                                <a href="#" onclick="performDestroy({{$admin->id}} , this)"  class="btn btn-danger">Delete</a>
-                                @endcan
+                                <a href="{{ route('permissions.edit' , $permission->id) }}" type="button" class="btn btn-info">Edit</a>
+                                <a href="#" onclick="performDestroy({{$permission->id}} , this)"  class="btn btn-danger">Delete</a>
                             </div>
 
                         </td>
@@ -89,7 +73,7 @@
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-              {{ $admins->links() }}
+              {{ $permissions->links() }}
             </div>
           </div>
 
@@ -101,7 +85,7 @@
 
 <script>
     function performDestroy(id , referance){
-        let url ='/cms/admin/admins/'+id;
+        let url ='/cms/admin/permissions/'+id;
         confirmDestroy(url , referance);
     }
   </script>

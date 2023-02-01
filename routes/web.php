@@ -1,9 +1,17 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RolePermissionController;
+
+use App\Http\Controllers\UserAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +29,18 @@ use App\Http\Controllers\CountryController;
 // });
 
 
-Route::prefix('cms/admin')->group(function(){
+Route::prefix('cms/')->middleware('guest:admin,author')->group(function(){
+    Route::get('{guard}/login' , [UserAuthController::class , 'showlogin'])->name('view.login');
+    Route::post('{guard}/login' , [UserAuthController::class , 'login']);
+
+});
+
+Route::prefix('cms/admin')->middleware('auth:admin,author')->group(function(){
+    Route::get('logout' , [UserAuthController::class , 'logout'])->name('view.logout');
+
+});
+
+Route::prefix('cms/admin')->middleware('auth:admin,author')->group(function(){
 
     Route::view('' , 'cms.parent');
     Route::view('temp' , 'cms.template');
@@ -35,4 +54,23 @@ Route::prefix('cms/admin')->group(function(){
     Route::resource('admins' , AdminController::class);
     Route::post('admins_update/{id}' , [AdminController::class , 'update'])->name('admins_update');
 
+    Route::resource('authors' , AuthorController::class);
+    Route::post('authors_update/{id}' , [AuthorController::class , 'update'])->name('authors_update');
+
+    Route::resource('categories' , CategoryController::class);
+    Route::post('categories_update/{id}' , [CategoryController::class , 'update'])->name('categories_update');
+
+    Route::resource('articles' , ArticleController::class);
+    Route::post('articles_update/{id}' , [ArticleController::class , 'update'])->name('articles_update');
+
+    Route::get('/create/articles/{id}', [ArticleController::class, 'createArticle'])->name('createArticle');
+    Route::get('/index/articles/{id}', [ArticleController::class, 'indexArticle'])->name('indexArticle');
+
+    Route::resource('roles' , RoleController::class);
+    Route::post('roles_update/{id}' , [RoleController::class , 'update'])->name('roles_update');
+
+    Route::resource('permissions' , PermissionController::class);
+    Route::post('permissions_update/{id}' , [PermissionController::class , 'update'])->name('permissions_update');
+
+    Route::resource('roles.permissions' , RolePermissionController::class);
 });

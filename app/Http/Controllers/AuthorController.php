@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
-use App\Models\Admin;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
-
 use Illuminate\Http\Request;
- use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+use App\Models\City;
+use App\Models\Author;
+use App\Models\User;
+class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +17,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::with('user')->orderBy('id' , 'desc')->paginate(5);
-        $this->authorize('viewAny' , Admin::class);
-        return response()->view('cms.admin.index' , compact('admins'));
+        $authors = Author::with('user')->withCount('articles')->orderBy('id' , 'desc')->paginate(5);
+        return response()->view('cms.author.index' , compact('authors'));
         
     }
 
@@ -34,10 +31,7 @@ class AdminController extends Controller
     {
 
         $cities = City::all();
-        $roles = Role::where('guard_name' , 'admin')->get();
-        $this->authorize('create' , Admin::class);
-
-        return response()->view('cms.admin.create' , compact('cities' , 'roles'));
+        return response()->view('cms.author.create' , compact('cities'));
     }
 
     /**
@@ -57,17 +51,15 @@ class AdminController extends Controller
         ]);
 
         if(! $validator->fails()){
-            $admins = new Admin();
-            $admins->email = $request->get('email');
-            $admins->password = Hash::make($request->get('password'));
+            $authors = new Author();
+            $authors->email = $request->get('email');
+            $authors->password = Hash::make($request->get('password'));
             
-            $isSaved = $admins->save();
+            $isSaved = $authors->save();
             if($isSaved){
                 $users = new User();
                 // $users->image = $request->get('image');
 
-                $roles = Role::findOrFail($request->get('role_id'));
-                $admins->assignRole($roles->name);
 
                 if (request()->hasFile('image')) {
 
@@ -75,7 +67,7 @@ class AdminController extends Controller
     
                     $imageName = time() . 'image.' . $image->getClientOriginalExtension();
     
-                    $image->move('storage/images/admin', $imageName);
+                    $image->move('storage/images/author', $imageName);
     
                     $users->image = $imageName;
                     }
@@ -88,7 +80,7 @@ class AdminController extends Controller
                 $users->gender = $request->get('gender');
                 $users->status = $request->get('status');
                 $users->date = $request->get('date');
-                $users->actor()->associate($admins);
+                $users->actor()->associate($authors);
 
                 $isSaved = $users->save();
 
@@ -128,8 +120,8 @@ class AdminController extends Controller
     public function edit($id)
     {
         $cities = City::all();
-        $admins = Admin::findOrFail($id);
-        return response()->view('cms.admin.edit' , compact('cities' , 'admins'));
+        $authors = Author::findOrFail($id);
+        return response()->view('cms.author.edit' , compact('cities' , 'authors'));
     }
 
     /**
@@ -148,13 +140,13 @@ class AdminController extends Controller
         ]);
 
         if(! $validator->fails()){
-            $admins = Admin::findOrFail($id);
-            $admins->email = $request->get('email');
-            $admins->password = Hash::make($request->get('password'));
+            $authors = Author::findOrFail($id);
+            $authors->email = $request->get('email');
+            // $authors->password = Hash::make($request->get('password'));
             
-            $isUpdate = $admins->save();
+            $isUpdate = $authors->save();
             if($isUpdate){
-                $users = $admins->user;
+                $users = $authors->user;
 
                 if (request()->hasFile('image')) {
 
@@ -176,10 +168,10 @@ class AdminController extends Controller
                 $users->gender = $request->get('gender');
                 $users->status = $request->get('status');
                 $users->date = $request->get('date');
-                $users->actor()->associate($admins);
+                $users->actor()->associate($authors);
 
                 $isUpdate = $users->save();
-                return ['redirect' => route('admins.index')];
+                return ['redirect' => route('authors.index')];
                 return response()->json([
                     'icon' => $isUpdate ? 'success' : 'error' ,
                     'title' => $isUpdate ? "Created is Successfully" : "Created is Failed",
@@ -203,6 +195,6 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $admins = Admin::destroy($id);
+        $authors = Author::destroy($id);
     }
 }

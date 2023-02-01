@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'INDESX Admins')
+@section('title' , 'INDESX Authors')
 
-@section('main-title' , 'Index Admins ')
+@section('main-title' , 'Index Authors ')
 
-@section('sub-title' , 'Index Admins ')
+@section('sub-title' , 'Index Authors ')
 
 @section('styles')
 
@@ -25,7 +25,7 @@
               <div class="card">
                 <div class="card-header">
 
-                  <a href="{{ route('admins.create') }}" type="submit" class="btn btn-info">Add New Admin</a>
+                  <a href="{{ route('authors.create') }}" type="submit" class="btn btn-info">Add New Author</a>
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -52,32 +52,34 @@
                         <th>gender</th>
                         <th>status</th>
                         <th>City Name</th>
+                        <th>Artciles</th>
+
                         <th>Setting</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($authors as $author)
                       <tr>
-                        <td>{{$admin->id}}</td>
+                        <td>{{$author->id}}</td>
                         <td>
-                          <img class="img-circle img-bordered-sm" src="{{asset('storage/images/admin/'.$admin->user->image)}}" width="50" height="50" alt="User Image">
+                          <img class="img-circle img-bordered-sm" src="{{asset('storage/images/author/'.$author->user->image)}}" width="50" height="50" alt="User Image">
                       </td>
-                        <td>{{$admin->user->first_name . " " . $admin->user->last_name ?? ""}}</td>
+                        <td>{{$author->user->first_name . " " . $author->user->last_name ?? ""}}</td>
                         {{-- <td>{{$admin->user->last_name ?? ""}}</td> --}}
-                        <td>{{$admin->email}}</td>
-                        <td>{{$admin->user->gender ?? ""}}</td>
-                        <td>{{$admin->user->status ?? ""}}</td>
+                        <td>{{$author->email}}</td>
+                        <td>{{$author->user->gender ?? ""}}</td>
+                        <td>{{$author->user->status ?? ""}}</td>
 
-                        <td>{{$admin->user->city->name ?? ""}}</td>
+                        <td>{{$author->user->city->name ?? ""}}</td>
+
+                        <td><a href="{{route('indexArticle',['id'=>$author->id])}}"
+                          class="btn btn-info">({{$author->articles_count}})
+                          article/s</a> </td>
 
                         <td>
                             <div class="btn group">
-                                @can('Edit-Admin')
-                                <a href="{{ route('admins.edit' , $admin->id) }}" type="button" class="btn btn-info">Edit</a>
-                               @endcan
-                               @can('Delete-Admin')
-                                <a href="#" onclick="performDestroy({{$admin->id}} , this)"  class="btn btn-danger">Delete</a>
-                                @endcan
+                                <a href="{{ route('authors.edit' , $author->id) }}" type="button" class="btn btn-info">Edit</a>
+                                <a href="#" onclick="performDestroy({{$author->id}} , this)"  class="btn btn-danger">Delete</a>
                             </div>
 
                         </td>
@@ -89,7 +91,7 @@
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-              {{ $admins->links() }}
+              {{ $authors->links() }}
             </div>
           </div>
 
@@ -101,7 +103,7 @@
 
 <script>
     function performDestroy(id , referance){
-        let url ='/cms/admin/admins/'+id;
+        let url ='/cms/admin/authors/'+id;
         confirmDestroy(url , referance);
     }
   </script>

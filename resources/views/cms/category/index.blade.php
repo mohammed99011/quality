@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'INDESX Admins')
+@section('title' , 'INDESX Category')
 
-@section('main-title' , 'Index Admins ')
+@section('main-title' , 'Index Category ')
 
-@section('sub-title' , 'Index Admins ')
+@section('sub-title' , 'Index Category ')
 
 @section('styles')
 
@@ -16,8 +16,8 @@
     <section class="content">
         <div class="container-fluid">
           <div class="row">
-
-
+        
+    
           </div>
           <!-- /.row -->
           <div class="row">
@@ -25,7 +25,7 @@
               <div class="card">
                 <div class="card-header">
 
-                  <a href="{{ route('admins.create') }}" type="submit" class="btn btn-info">Add New Admin</a>
+                  <a href="{{ route('categories.create') }}" type="submit" class="btn btn-info">Add New County</a>
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -45,43 +45,27 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Full Name</th>
-                        
-                        <th>email</th>
-                        <th>gender</th>
-                        <th>status</th>
-                        <th>City Name</th>
+                        <th>Category Name</th>
+                        <th>Status</th>
+
                         <th>Setting</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($categories as $category)
                       <tr>
-                        <td>{{$admin->id}}</td>
-                        <td>
-                          <img class="img-circle img-bordered-sm" src="{{asset('storage/images/admin/'.$admin->user->image)}}" width="50" height="50" alt="User Image">
-                      </td>
-                        <td>{{$admin->user->first_name . " " . $admin->user->last_name ?? ""}}</td>
-                        {{-- <td>{{$admin->user->last_name ?? ""}}</td> --}}
-                        <td>{{$admin->email}}</td>
-                        <td>{{$admin->user->gender ?? ""}}</td>
-                        <td>{{$admin->user->status ?? ""}}</td>
-
-                        <td>{{$admin->user->city->name ?? ""}}</td>
+                        <td>{{$category->id}}</td>
+                        <td>{{$category->name}}</td>
+                        <td>{{$category->status}}</td>
 
                         <td>
                             <div class="btn group">
-                                @can('Edit-Admin')
-                                <a href="{{ route('admins.edit' , $admin->id) }}" type="button" class="btn btn-info">Edit</a>
-                               @endcan
-                               @can('Delete-Admin')
-                                <a href="#" onclick="performDestroy({{$admin->id}} , this)"  class="btn btn-danger">Delete</a>
-                                @endcan
+                                <a href="{{ route('categories.edit' , $category->id) }}" type="button" class="btn btn-info">Edit</a>
+                                <a href="#" onclick="performDestroy({{$category->id}} , this)"  class="btn btn-danger">Delete</a>
                             </div>
 
                         </td>
-                      </tr>
+                      </tr> 
                       @endforeach
                     </tbody>
                   </table>
@@ -89,10 +73,10 @@
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-              {{ $admins->links() }}
+              {{ $categories->links() }}
             </div>
           </div>
-
+    
         </div><!-- /.container-fluid -->
       </section>
 @endsection
@@ -101,7 +85,7 @@
 
 <script>
     function performDestroy(id , referance){
-        let url ='/cms/admin/admins/'+id;
+        let url ='/cms/admin/categories/'+id;
         confirmDestroy(url , referance);
     }
   </script>

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class Admin extends Authenticatable
+
+class Author extends Authenticatable
 {
     use HasFactory , HasRoles;
 
@@ -15,6 +16,7 @@ class Admin extends Authenticatable
         return $this->morphOne(User::class , 'actor' , 'actor_type' , 'actor_id' , 'id');
     }
 
-
-
+    public function articles(){
+        return $this->hasMany(Article::class , 'author_id' , 'id');
+    }
 }

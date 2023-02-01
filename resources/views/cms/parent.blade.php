@@ -219,9 +219,64 @@
             </ul>
           </li>
 
+          <li class="nav-header">Roles && Permissions</li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              {{-- <i class="fas fa-user"></i> --}}
+              <p>
+                Roles
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('roles.index')}}" class="nav-link">
+                    <i class="fas fa-list-ul nav-icon"></i>
+                    <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('roles.create') }}" class="nav-link">
+                    <i class="fas fa-plus nav-icon"></i>
+                    <p>create</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              {{-- <i class="fas fa-user"></i> --}}
+              <p>
+                Permissions
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('permissions.index')}}" class="nav-link">
+                    <i class="fas fa-list-ul nav-icon"></i>
+                    <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('permissions.create') }}" class="nav-link">
+                    <i class="fas fa-plus nav-icon"></i>
+                    <p>create</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          @canany(['Index-Admin' , 'Create-Admin'])
+
           <li class="nav-header">Mangment User</li>
 
-
+          @canany(['Index-Admin' , 'Create-Admin'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -232,14 +287,44 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('Index-Admin')
               <li class="nav-item">
                 <a href="{{ route('admins.index')}}" class="nav-link">
                     <i class="fas fa-list-ul nav-icon"></i>
                     <p>index</p>
                 </a>
               </li>
+              @endcan
+              @can('Creaet-Admin')
               <li class="nav-item">
                 <a href="{{ route('admins.create') }}" class="nav-link">
+                    <i class="fas fa-plus nav-icon"></i>
+                    <p>create</p>
+                </a>
+              </li>
+              @endcan
+            </ul>
+          </li>
+          @endcanAny
+
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              {{-- <i class="fas fa-user"></i> --}}
+              <p>
+                Author
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('authors.index')}}" class="nav-link">
+                    <i class="fas fa-list-ul nav-icon"></i>
+                    <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('authors.create') }}" class="nav-link">
                     <i class="fas fa-plus nav-icon"></i>
                     <p>create</p>
                 </a>
@@ -247,7 +332,8 @@
 
             </ul>
           </li>
-
+          @endcanany
+          
           <li class="nav-header">Mangment Content</li>
 
 
@@ -307,6 +393,61 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-globe-europe"></i>
+              {{-- <i class="fas fa-globe-europe"></i> --}}
+              <p>
+                Category
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('categories.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  {{-- <i class="fas fa-list-ul"></i> --}}
+                  <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('categories.create') }}" class="nav-link">
+                  <i class="fas fa-plus nav-icon"></i>
+                  {{-- <i class="fas fa-plus"></i> --}}
+                  <p>create</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-globe-europe"></i>
+              {{-- <i class="fas fa-globe-europe"></i> --}}
+              <p>
+                Article
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('articles.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  {{-- <i class="fas fa-list-ul"></i> --}}
+                  <p>index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('articles.create') }}" class="nav-link">
+                  <i class="fas fa-plus nav-icon"></i>
+                  {{-- <i class="fas fa-plus"></i> --}}
+                  <p>create</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
           <li class="nav-header">Setting</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -325,7 +466,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('view.logout') }}" class="nav-link">
               <i class="fas fa-sign-out-alt nav-icon"></i>
               {{-- <i class="fas fa-sign-out"></i> --}}
               {{-- <i class="fas fa-sign-out-alt"></i> --}}

@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'INDESX Admins')
+@section('title' , 'Index Roles')
 
-@section('main-title' , 'Index Admins ')
+@section('main-title' , 'Index Roles ')
 
-@section('sub-title' , 'Index Admins ')
+@section('sub-title' , 'Index Roles ')
 
 @section('styles')
 
@@ -25,7 +25,7 @@
               <div class="card">
                 <div class="card-header">
 
-                  <a href="{{ route('admins.create') }}" type="submit" class="btn btn-info">Add New Admin</a>
+                  <a href="{{ route('roles.create') }}" type="submit" class="btn btn-info">Add New Role</a>
 
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -45,39 +45,27 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Full Name</th>
-                        
-                        <th>email</th>
-                        <th>gender</th>
-                        <th>status</th>
-                        <th>City Name</th>
+                        <th>Role Name</th>
+                        <th>Guard Name</th>
+                        <th>Permissions</th>
+
                         <th>Setting</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($roles as $role)
                       <tr>
-                        <td>{{$admin->id}}</td>
-                        <td>
-                          <img class="img-circle img-bordered-sm" src="{{asset('storage/images/admin/'.$admin->user->image)}}" width="50" height="50" alt="User Image">
-                      </td>
-                        <td>{{$admin->user->first_name . " " . $admin->user->last_name ?? ""}}</td>
-                        {{-- <td>{{$admin->user->last_name ?? ""}}</td> --}}
-                        <td>{{$admin->email}}</td>
-                        <td>{{$admin->user->gender ?? ""}}</td>
-                        <td>{{$admin->user->status ?? ""}}</td>
-
-                        <td>{{$admin->user->city->name ?? ""}}</td>
-
+                        <td>{{$role->id}}</td>
+                        <td>{{$role->name}}</td>
+                        <td>{{$role->guard_name}}</td>
+                        
+                        <td><a href="{{route('roles.permissions.index', $role->id)}}"
+                            class="btn btn-info">({{$role->permissions_count}})
+                            permissions/s</a> </td>
                         <td>
                             <div class="btn group">
-                                @can('Edit-Admin')
-                                <a href="{{ route('admins.edit' , $admin->id) }}" type="button" class="btn btn-info">Edit</a>
-                               @endcan
-                               @can('Delete-Admin')
-                                <a href="#" onclick="performDestroy({{$admin->id}} , this)"  class="btn btn-danger">Delete</a>
-                                @endcan
+                                <a href="{{ route('roles.edit' , $role->id) }}" type="button" class="btn btn-info">Edit</a>
+                                <a href="#" onclick="performDestroy({{$role->id}} , this)"  class="btn btn-danger">Delete</a>
                             </div>
 
                         </td>
@@ -89,7 +77,7 @@
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-              {{ $admins->links() }}
+              {{ $roles->links() }}
             </div>
           </div>
 
@@ -101,7 +89,7 @@
 
 <script>
     function performDestroy(id , referance){
-        let url ='/cms/admin/admins/'+id;
+        let url ='/cms/admin/roles/'+id;
         confirmDestroy(url , referance);
     }
   </script>

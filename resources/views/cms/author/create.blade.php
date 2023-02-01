@@ -1,10 +1,10 @@
 @extends('cms.parent')
 
-@section('title' , 'Create Admin')
+@section('title' , 'Create Author')
 
-@section('main-title' , 'Create Admin')
+@section('main-title' , 'Create Author')
 
-@section('sub-title' , 'Create Admin')
+@section('sub-title' , 'Create Author')
 
 @section('styles')
 
@@ -19,7 +19,7 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Create New Admin</h3>
+              <h3 class="card-title">Create New Author</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -36,13 +36,13 @@
                  <div class="form-group col-md-4">
 
                   <label for="last_name">Last Name Name</label>
-                  <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Admin Name">
+                  <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter author Name">
                 </div>
 
                  <div class="form-group col-md-4">
 
                   <label for="mobile"> Mobile</label>
-                  <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter Admin Name">
+                  <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter author Name">
                 </div>
               </div>
              <div class="row">
@@ -50,42 +50,32 @@
                 <div class="form-group col-md-4">
 
                   <label for="email"> Email</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Enter Admin Name">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Enter author Name">
                 </div>
 
                 <div class="form-group col-md-4">
 
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" name="password" id="password" placeholder="Enter Admin Name">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="Enter author Name">
                 </div>
                 <div class="form-group col-md-4">
 
                   <label for="address">Address</label>
-                  <input type="text" class="form-control" name="address" id="address" placeholder="Enter Admin Name">
+                  <input type="text" class="form-control" name="address" id="address" placeholder="Enter author Name">
                 </div>
                 </div>
 
              <div class="row">
 
-                <div class="form-group col-md-4">
-                    <label for="role_id">Role</label>
-                    <select class="form-control" name="role_id" style="width: 100%;"
-                        id="role_id" aria-label=".form-select-sm example">
-                        @foreach ($roles as $role )
-                            <option value="{{ $role->id }}" >{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="city_id">City</label>
-                    <select class="form-control" name="city_id" style="width: 100%;"
-                        id="city_id" aria-label=".form-select-sm example">
-                        @foreach ($cities as $city )
-                            <option value="{{ $city->id }}" >{{ $city->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+              <div class="form-group col-md-4">
+                  <label for="city_id">City</label>
+                  <select class="form-control" name="city_id" style="width: 100%;"
+                      id="city_id" aria-label=".form-select-sm example">
+                      @foreach ($cities as $city )
+                          <option value="{{ $city->id }}" >{{ $city->name }}</option>
+                      @endforeach
+                  </select>
+              </div>
 
                     <div class="form-group col-md-4">
                      <label for="gender">Gender</label>
@@ -110,12 +100,12 @@
 
                 <div class="form-group col-md-6">
                   <label for="date">Date of Birth</label>
-                  <input type="date" class="form-control" id="date" name="date" placeholder="Enter address of Admin">
+                  <input type="date" class="form-control" id="date" name="date" placeholder="Enter address of author">
                 </div>
 
                 <div class="form-group col-md-6">
                   <label for="image">Choose Image</label>
-                  <input type="file" class="form-control" id="image" name="image" placeholder="Enter address of Admin">
+                  <input type="file" class="form-control" id="image" name="image" placeholder="Enter address of author">
                 </div>
 
             </div>
@@ -130,7 +120,7 @@
 
               <div class="card-footer">
                 <button type="button" onclick="performStore()" class="btn btn-primary">Store</button>
-                <a href="{{ route('admins.index') }}" type="submit" class="btn btn-info">GO BACK</a>
+                <a href="{{ route('authors.index') }}" type="submit" class="btn btn-info">GO BACK</a>
 
               </div>
             </form>
@@ -163,10 +153,9 @@ let formData = new FormData();
     formData.append('status',document.getElementById('status').value);
     formData.append('date',document.getElementById('date').value);
     formData.append('city_id',document.getElementById('city_id').value);
-    formData.append('role_id',document.getElementById('role_id').value);
     formData.append('image',document.getElementById('image').files[0]);
 
-    store('/cms/admin/admins' , formData);
+    store('/cms/admin/authors' , formData);
 }
 
 </script>

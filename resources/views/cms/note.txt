@@ -176,3 +176,13 @@ relation tables
 
 
 6- button  create in top of index blade
+
+
+//  login
+    1- تحديد مستخدمين النظام
+    2- change model extends Authenticatable
+    3- Create new Guard and Proivder for all users system
+    4- view login
+    5- Create UserAuthController 
+    6- Create new route for login & logout & showlogin with Middleware
+    7- in middlware
